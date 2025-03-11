@@ -40,7 +40,7 @@ public class ArrayExe3Calendar {
 			System.out.print(" " + day);
 		}
 		System.out.println();
-		int month = 1;
+		int month = 3;
 		int space = getFirstDay(month); // 공백이 몇인지 알려주는 변수(1일이 언제부터 시작하는지 알려줌)
 		int lastDate = getLastDay(month); // 마지막 날
 		for (int i = 0; i < space; i++) {
@@ -59,8 +59,11 @@ public class ArrayExe3Calendar {
 				if ((space + i) % 7 == 1) {
 					System.out.print("\u001B[31m" + "  " + i + "\u001B[0m");
 				} else {
-
-					System.out.print("  " + i);
+					if (month == 3 && i == 21) {
+						System.out.print("  " + "평가");
+					} else {
+						System.out.print("  " + i);
+					}
 				}
 			}
 			//
