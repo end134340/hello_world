@@ -31,17 +31,13 @@ public class VarExe6 {
 		
 		//학생의 이름과 점수를 한 번에 담고 싶음
 		//학생의 이름과 점수를 담을 수 있는 클래스 선언 후 인스턴스 생성.
-		Member m1 = new Member();
-//		m1.name = "홍길동";
+		Member m1 = new Member("홍길동", 0);
 		
-		Member m2 = new Member();
-//		m2.name = "최민수";
+		Member m2 = new Member("김말자", 0);
 		
-		Member m3 = new Member();
-//		m3.name = "김기려";
+		Member m3 = new Member("장미", 0);
 		
-		Member m4 = new Member();
-//		m4.name = "김말자";
+		Member m4 = new Member("강창호", 0);
 		
 		//배열
 		Member[] members = {m1, m2, m3, m4};
@@ -58,7 +54,7 @@ public class VarExe6 {
 		
 		for(int i = 0; i < members.length; i++) {
 			if(members[i].getName().equals(search)) { //문자열인 경우의 비교 구문 배열[].문자열키.equals(비교할 문자열); 일치하면 true를 반환.
-				System.out.println(search + "의 점수는 " + members[i].getScore() + "입니다.");
+				System.out.println(search + "의 점수는 " + members[i].getScore() + "점 입니다.");
 			}
 		}
 		
