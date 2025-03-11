@@ -14,7 +14,7 @@ public class HelloExe {
 	  int score = 100; //변수 선언하며 값을 넘어줌 = 초기값 할당
 	  
 	  System.out.println("점수는 " + score + "점 입니다.");
-	  
+	  System.out.println("변경된 부분입니다.");
 	  
   }
 }
