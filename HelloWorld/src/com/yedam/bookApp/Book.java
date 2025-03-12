@@ -90,6 +90,10 @@ public class Book {
 		return "  " + title + "     " + writer + "      " + price;
 	}
 	
+	public String showListCompany() {
+		return " " + title + "    " + writer + "     " + company + "    " + price;
+	}
+	
 	public String showListWithNo() {
 		return orderNo + "  " + title + "     " + writer + "      " + price;
 	}

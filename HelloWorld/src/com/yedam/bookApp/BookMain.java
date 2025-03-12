@@ -214,15 +214,42 @@ public class BookMain {
 		}
 	}
 
+	public static void selectComp() {
+		String company;
+
+		while (true) {
+			System.out.println("조회하실 출판사를 입력해주세요.");
+			System.out.print("  > ");
+			company = scn.nextLine();
+
+			if (company.isBlank()) {
+				System.out.println("출판사를 다시 입력하여 주세요.");
+			} else {
+				break;
+			}
+
+		}
+
+		System.out.println("   제목   |   저자   |  출판사  |   가격   ");
+		System.out.println("======================================");
+
+		for (int i = 0; i < bookStore.length; i++) {
+			if (bookStore[i] != null && bookStore[i].getCompany().equals(company)) {
+				System.out.println(bookStore[i].showListCompany());
+			}
+		}
+
+	}
+
 	public static void main(String[] args) {
 		// static: 따로 인스턴스를 안 만들고 바로 실행할 수 있도록 클래스를 읽어들이는 시점에 메모리에 등록해줌
 		init();
 		boolean run = true;
 
 		while (run) {
-			System.out.println("===================================================================");
-			System.out.println(" 1. 도서등록 | 2. 도서수정 | 3. 도서삭제 | 4. 목록출력 | 5. 상세조회 |  9. 종료  ");
-			System.out.println("===================================================================");
+			System.out.println("===============================================================================");
+			System.out.println(" 1. 도서등록 | 2. 도서수정 | 3. 도서삭제 | 4. 목록출력 | 5. 상세조회 | 6. 조건조회 |  9. 종료  ");
+			System.out.println("===============================================================================");
 			System.out.print("메뉴를 선택해 주세요 > ");
 			int menu = Integer.parseInt(scn.nextLine()); // nextInt()로는 숫자 입력과 함께 들어오는 엔터값 처리가 불가능하므로 parseInt를 사용해
 			// 엔터 처리가 가능하지만 문자열인 nextLine() 감싸 사용
@@ -243,6 +270,9 @@ public class BookMain {
 			case 5: // 책 제목 입력받아 상세 조회
 				selectOne();
 				break;
+			case 6: // 출판사 정보 입력받아 출력
+				selectComp();
+				break;
 			case 9:
 				run = false;
 				break;
@@ -260,6 +290,9 @@ public class BookMain {
 		bookStore[0] = new Book("감자도리", "감자", "밭", 13000, 1);
 		bookStore[1] = new Book("고구마요리", "고구마", "밭", 20000, 2);
 		bookStore[2] = new Book("어린왕자", "생텍쥐페리", "꿈", 17000, 3);
+		bookStore[3] = new Book("행복한왕자", "오스카 와일드", "꿈", 17000, 4);
+		bookStore[4] = new Book("백조 왕자", "안데르센", "꿈", 17000, 5);
+		bookStore[5] = new Book("이것이 자바다", "신용권", "한빛출", 17000, 6);
 	}
 
 }
