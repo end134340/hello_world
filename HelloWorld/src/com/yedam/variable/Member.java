@@ -38,6 +38,10 @@ public class Member {
 		return name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void setScore(int score) {
 		if(score < 0 || score > 100) {
 			System.out.println("점수는 1에서 100사이의 값이어야 합니다.");
