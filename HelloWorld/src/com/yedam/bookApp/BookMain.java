@@ -173,11 +173,11 @@ public class BookMain {
 		}
 
 		int seqNo = 1;
-
 		System.out.println("순번 |   제목   |   저자   |   가격   ");
 		System.out.println("=================================");
 
-		for (Book books : bookStore) {
+		Book[] list = searchList(null);
+		for (Book books : list) {
 			if (books != null) {
 				System.out.println(seqNo++ + " " + books.showList());
 			}
@@ -214,7 +214,7 @@ public class BookMain {
 		}
 	}
 
-	public static void selectComp() {
+	public static void listCompany() {
 		String company;
 
 		while (true) {
@@ -230,15 +230,32 @@ public class BookMain {
 
 		}
 
+		int seqNo = 1;
 		System.out.println("   제목   |   저자   |  출판사  |   가격   ");
 		System.out.println("======================================");
-
-		for (int i = 0; i < bookStore.length; i++) {
-			if (bookStore[i] != null && bookStore[i].getCompany().equals(company)) {
-				System.out.println(bookStore[i].showListCompany());
+		Book[] list = searchList(company);
+		for (Book books : list) {
+			if (books != null) {
+				if (books.getCompany().equals(company)) {
+					System.out.println(seqNo++ + " " + books.showListCompany());
+				}
 			}
 		}
 
+	}
+
+	// list와 listCompany에서 활용할 공통 메소드
+	public static Book[] searchList(String keyword) {
+		Book[] list = new Book[100];
+		int idx = 0;
+		for (int i = 0; i < bookStore.length; i++) {
+			if (bookStore[i] != null) {
+				if (keyword == null || bookStore[i].getCompany().equals(keyword)) {
+					list[idx++] = bookStore[i];
+				}
+			}
+		}
+		return list;
 	}
 
 	public static void main(String[] args) {
@@ -271,7 +288,7 @@ public class BookMain {
 				selectOne();
 				break;
 			case 6: // 출판사 정보 입력받아 출력
-				selectComp();
+				listCompany();
 				break;
 			case 9:
 				run = false;
