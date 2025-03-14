@@ -15,7 +15,7 @@ public class BookMain {
 
 	// 3. getInstance() 메소드 제공
 	public static BookMain getInstance() {
-		//정적 필드에서 참조하는 자신의 객체 리턴.
+		// 정적 필드에서 참조하는 자신의 객체 리턴.
 		return instance;
 	}
 	// 4. => BookApp에서 활용
@@ -23,6 +23,7 @@ public class BookMain {
 	Scanner scn = new Scanner(System.in);
 	Book[] bookStore = new Book[100];
 	boolean check = false;
+	User[] users = new User[10];
 
 	// 책제목으로 조회해서 반환해주는 메소드
 	public Book searchBook(String title) {
@@ -273,12 +274,32 @@ public class BookMain {
 		return list;
 	}
 
+	public boolean login(String id, String pw) {
+		for (int i = 0; i < users.length; i++) {
+			if (users[i] != null && users[i].getUserId().equals(id) && users[i].getPassword().equals(pw)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void main(String[] args) {
 		// : 따로 인스턴스를 안 만들고 바로 실행할 수 있도록 클래스를 읽어들이는 시점에 메모리에 등록해줌
 		init();
 		boolean run = true;
 
 		while (run) {
+			System.out.println("로그인할 아이디와 비밀번호를 입력해주세요.");
+			System.out.print(" 아이디: ");
+			String uid = scn.nextLine();
+			System.out.print("비밀번호: ");
+			String upw = scn.nextLine();
+
+			if(!login(uid, upw)) {
+				System.out.println("아이디 혹은 비밀번호가 틀립니다. 다시 입력해주세요.");
+				continue;
+			}
+			
 			System.out.println("===============================================================================");
 			System.out.println(" 1. 도서등록 | 2. 도서수정 | 3. 도서삭제 | 4. 목록출력 | 5. 상세조회 | 6. 조건조회 |  9. 종료  ");
 			System.out.println("===============================================================================");
@@ -325,6 +346,10 @@ public class BookMain {
 		bookStore[3] = new Book("행복한왕자", "오스카 와일드", "꿈", 17000, 4);
 		bookStore[4] = new Book("백조 왕자", "안데르센", "꿈", 17000, 5);
 		bookStore[5] = new Book("이것이 자바다", "신용권", "한빛출", 17000, 6);
+
+		users[0] = new User("userid", "user1", "userpw");
+		users[1] = new User("thisid", "user2", "userpw");
+		users[2] = new User("imuser", "user3", "userpw");
 	}
 
 }
