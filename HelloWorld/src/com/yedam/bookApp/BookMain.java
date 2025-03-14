@@ -4,13 +4,28 @@ import java.util.Scanner;
 
 //도서관리 프로그램(등록, 수정, 삭제, 목록)
 public class BookMain {
+	// 싱글톤: 프로그램에서 하나의 객체(인스턴스)만 만들도록 하는 방법.
+	// 1. 생성자를 private로 생성.
+	private BookMain() {
 
-	static Scanner scn = new Scanner(System.in);
-	static Book[] bookStore = new Book[100];
-	static boolean check = false;
+	}
+
+	// 2. 자신의 타입(클래스)으로 정적 필드를 만들고 인스턴스를 할당.
+	private static BookMain instance = new BookMain();
+
+	// 3. getInstance() 메소드 제공
+	public static BookMain getInstance() {
+		//정적 필드에서 참조하는 자신의 객체 리턴.
+		return instance;
+	}
+	// 4. => BookApp에서 활용
+
+	Scanner scn = new Scanner(System.in);
+	Book[] bookStore = new Book[100];
+	boolean check = false;
 
 	// 책제목으로 조회해서 반환해주는 메소드
-	public static Book searchBook(String title) {
+	public Book searchBook(String title) {
 		for (int i = 0; i < bookStore.length; i++) {
 			if (bookStore[i] != null && bookStore[i].getTitle().equals(title)) {
 				return bookStore[i];
@@ -20,7 +35,7 @@ public class BookMain {
 	}
 
 	// orderNo의 순번을 가지고와서 +1해서 반환해주는 메소드
-	public static int getSequenceNo() {
+	public int getSequenceNo() {
 		int max = 0;
 		for (int i = 0; i < bookStore.length; i++) {
 			if (bookStore[i] != null && max < bookStore[i].getOrderNo()) {
@@ -31,7 +46,7 @@ public class BookMain {
 	}
 
 	// 등록하는 메소드
-	public static void add() {
+	public void add() {
 		System.out.println("등록할 도서의 제목을 입력해주세요.");
 		System.out.print("  > ");
 		String title = scn.nextLine();
@@ -71,7 +86,7 @@ public class BookMain {
 		}
 	}// end of add();
 
-	public static void edit() {
+	public void edit() {
 		System.out.println("수정하고 싶은 도서의 제목을 입력하세요.");
 		System.out.print("  > ");
 		String title = scn.nextLine();
@@ -125,7 +140,7 @@ public class BookMain {
 		}
 	}
 
-	public static void delete() {
+	public void delete() {
 		check = false;
 		String title;
 		while (true) {
@@ -155,7 +170,7 @@ public class BookMain {
 		}
 	}
 
-	public static void list() {
+	public void list() {
 		// 순번을 기준으로 정렬
 		// 오름차순. j가 null이면 바꾸지 않고, j+1이 null인 경우에는 바꿈.
 		Book temp = null;
@@ -184,7 +199,7 @@ public class BookMain {
 		}
 	}
 
-	public static void selectOne() {
+	public void selectOne() {
 		String title = null;
 		check = false;
 		while (true) {
@@ -214,7 +229,7 @@ public class BookMain {
 		}
 	}
 
-	public static void listCompany() {
+	public void listCompany() {
 		String company;
 
 		while (true) {
@@ -245,7 +260,7 @@ public class BookMain {
 	}
 
 	// list와 listCompany에서 활용할 공통 메소드
-	public static Book[] searchList(String keyword) {
+	public Book[] searchList(String keyword) {
 		Book[] list = new Book[100];
 		int idx = 0;
 		for (int i = 0; i < bookStore.length; i++) {
@@ -258,8 +273,8 @@ public class BookMain {
 		return list;
 	}
 
-	public static void main(String[] args) {
-		// static: 따로 인스턴스를 안 만들고 바로 실행할 수 있도록 클래스를 읽어들이는 시점에 메모리에 등록해줌
+	public void main(String[] args) {
+		// : 따로 인스턴스를 안 만들고 바로 실행할 수 있도록 클래스를 읽어들이는 시점에 메모리에 등록해줌
 		init();
 		boolean run = true;
 
@@ -303,7 +318,7 @@ public class BookMain {
 
 	}// 메인 끝
 
-	public static void init() {
+	public void init() {
 		bookStore[0] = new Book("감자도리", "감자", "밭", 13000, 1);
 		bookStore[1] = new Book("고구마요리", "고구마", "밭", 20000, 2);
 		bookStore[2] = new Book("어린왕자", "생텍쥐페리", "꿈", 17000, 3);

@@ -1,13 +1,132 @@
 package com.yedam.classes;
 
+import java.util.Scanner;
+
 public class MethodMain {
 	public static void main(String[] args) {
-		MethodExe3 m3 = new MethodExe3();
-//		System.out.println(m3.gugudan(3, 5));
-//		m3.printStar(5, "★");
-		m3.printCard();
+		officeApp();
 
 	}// 메인 끝
+
+	static void officeApp() {
+		MethodExe2 m2 = new MethodExe2(); // 기능 정의
+
+		// 사용자의 입력을 받아 기능 구현
+		// 1.목록 2.추가 3.수정 4.삭제 9.종료
+
+		boolean run = true;
+		Scanner scn = new Scanner(System.in);
+
+		while (run) {
+			System.out.println("===========================================");
+			System.out.println(" 1. 목록 | 2. 추가 | 3. 수정 | 4. 삭제 | 9. 종료 ");
+			System.out.println("===========================================");
+			System.out.print("  > ");
+			int menu = Integer.parseInt(scn.nextLine());
+			switch (menu) {
+			case 1: // 목록 출력
+				Product prd = new Product();
+				prd.setProductName("ALL");
+				Product[] list = m2.productList(prd);
+				for (int i = 0; i < list.length; i++) {
+					if (list[i] != null) {
+						System.out.println(list[i].showList());
+					}
+				}
+				break;
+			case 2: // 추가
+				System.out.println("추가하실 상품의 코드를 입력하여 주세요.");
+				System.out.print("  > ");
+				String code = scn.nextLine();
+
+				System.out.println("추가하실 상품의 이름을 입력하여 주세요.");
+				System.out.print("  > ");
+				String name = scn.nextLine();
+
+				System.out.println("추가하실 상품의 가격을 입력하여 주세요.");
+				System.out.print("  > ");
+				String price = scn.nextLine();
+
+				if (code.isBlank() || name.isBlank() || price.isBlank()) {
+					System.out.println("상품을 등록할 때에는 빈 값을 등록할 수 없습니다.");
+					break;
+				}
+				prd = new Product(code, name, Integer.parseInt(price));
+
+				if (m2.add(prd)) {
+					System.out.println("상품이 정상적으로 등록되었습니다.");
+				} else {
+					System.out.println("상품이 등록되지 못했습니다. 다시 시도해주세요.");
+				}
+
+				break;
+			case 3: // 수정
+				while (true) {
+					System.out.println("수정하실 상품의 코드를 입력하여 주세요.");
+					System.out.print("  > ");
+					code = scn.nextLine();
+
+					if (code.isBlank()) {
+						System.out.println("상품 코드는 비워둘 수 없습니다.");
+					} else {
+						break;
+					}
+
+				}
+
+				System.out.println("수정하실 상품의 이름을 입력하여 주세요. (수정하지 않고 스킵: 엔터)");
+				System.out.print("  > ");
+				name = scn.nextLine();
+
+				System.out.println("수정하실 상품의 가격을 입력하여 주세요. (수정하지 않고 스킵: 엔터)");
+				System.out.print("  > ");
+				price = scn.nextLine();
+
+				if (name.isBlank()) {
+					name = null;
+				}
+				if (price.isBlank()) {
+					price = "0";
+				}
+
+				prd = new Product(code, name, Integer.parseInt(price));
+
+				if (m2.modify(prd)) {
+					System.out.println("상품이 정상적으로 수정되었습니다.");
+				} else {
+					System.out.println("상품이 수정되지 않았습니다. 다시 시도해주세요.");
+				}
+				break;
+			case 4: // 삭제
+				while (true) {
+					System.out.println("삭제하실 상품의 코드를 입력하여 주세요.");
+					System.out.print("  > ");
+					code = scn.nextLine();
+
+					if (code.isBlank()) {
+						System.out.println("상품 코드는 비워둘 수 없습니다.");
+					} else {
+						break;
+					}
+				}
+
+				if (m2.remove(code)) {
+					System.out.println("상품이 정상적으로 삭제되었습니다.");
+				} else {
+					System.out.println("상품이 삭제되지 않았습니다. 다시 시도해 주세요.");
+				}
+
+				break;
+			case 9: // 종료
+				run = false;
+				break;
+			default:
+				System.out.println("올바른 메뉴를 선택하여 주세요.");
+			}
+		}
+		System.out.println("프로그램이 종료되었습니다.");
+
+	}// officeApp 종료.
 
 	void method1() {
 		MethodExe1 m1 = new MethodExe1(); // 클래스의 생성자를 호출
@@ -59,5 +178,17 @@ public class MethodMain {
 				System.out.println(list[i].showList());
 			}
 		}
+	}
+
+	void method3() {
+		MethodExe3 m3 = new MethodExe3();
+//		System.out.println(m3.gugudan(3, 5));
+//		m3.printStar(5, "◈");
+//		m3.printCard();
+	}
+
+	void method4() {
+		MethodExe4 m4 = new MethodExe4();
+		MethodExe4.main();
 	}
 }

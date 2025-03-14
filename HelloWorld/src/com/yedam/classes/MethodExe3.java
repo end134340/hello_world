@@ -31,17 +31,25 @@ public class MethodExe3 {
 		// 배열 선언
 		int[] intAry = new int[16];
 		int num = 0;
+		boolean check = false;
 		// 1 ~ 16까지의 임의수 할당
 		for (int i = 0; i < intAry.length; i++) {
 			num = (int) (Math.random() * 16) + 1;
 
 			for (int su : intAry) {
 				if (su == num) {
-					num = (int) (Math.random() * 16) + 1;
-					continue;
+					check = true;
+					break;
 				} else {
-					intAry[i] = num;
+					check = false;
 				}
+
+			}
+			if (check) {
+				intAry[i] = num;
+			} else {
+				i--;
+				continue;
 			}
 
 		}
