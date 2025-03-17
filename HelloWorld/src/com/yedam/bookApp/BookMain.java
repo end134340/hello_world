@@ -26,7 +26,7 @@ public class BookMain {
 	User[] users = new User[10];
 
 	// 책제목으로 조회해서 반환해주는 메소드
-	public Book searchBook(String title) {
+	private Book searchBook(String title) {
 		for (int i = 0; i < bookStore.length; i++) {
 			if (bookStore[i] != null && bookStore[i].getTitle().equals(title)) {
 				return bookStore[i];
@@ -36,7 +36,7 @@ public class BookMain {
 	}
 
 	// orderNo의 순번을 가지고와서 +1해서 반환해주는 메소드
-	public int getSequenceNo() {
+	private int getSequenceNo() {
 		int max = 0;
 		for (int i = 0; i < bookStore.length; i++) {
 			if (bookStore[i] != null && max < bookStore[i].getOrderNo()) {
@@ -47,7 +47,7 @@ public class BookMain {
 	}
 
 	// 등록하는 메소드
-	public void add() {
+	private void add() {
 		System.out.println("등록할 도서의 제목을 입력해주세요.");
 		System.out.print("  > ");
 		String title = scn.nextLine();
@@ -87,7 +87,7 @@ public class BookMain {
 		}
 	}// end of add();
 
-	public void edit() {
+	private void edit() {
 		System.out.println("수정하고 싶은 도서의 제목을 입력하세요.");
 		System.out.print("  > ");
 		String title = scn.nextLine();
@@ -141,7 +141,7 @@ public class BookMain {
 		}
 	}
 
-	public void delete() {
+	private void delete() {
 		check = false;
 		String title;
 		while (true) {
@@ -171,7 +171,7 @@ public class BookMain {
 		}
 	}
 
-	public void list() {
+	private void list() {
 		// 순번을 기준으로 정렬
 		// 오름차순. j가 null이면 바꾸지 않고, j+1이 null인 경우에는 바꿈.
 		Book temp = null;
@@ -200,7 +200,7 @@ public class BookMain {
 		}
 	}
 
-	public void selectOne() {
+	private void selectOne() {
 		String title = null;
 		check = false;
 		while (true) {
@@ -230,7 +230,7 @@ public class BookMain {
 		}
 	}
 
-	public void listCompany() {
+	private void listCompany() {
 		String company;
 
 		while (true) {
@@ -261,7 +261,7 @@ public class BookMain {
 	}
 
 	// list와 listCompany에서 활용할 공통 메소드
-	public Book[] searchList(String keyword) {
+	private Book[] searchList(String keyword) {
 		Book[] list = new Book[100];
 		int idx = 0;
 		for (int i = 0; i < bookStore.length; i++) {
@@ -274,7 +274,7 @@ public class BookMain {
 		return list;
 	}
 
-	public boolean login(String id, String pw) {
+	private boolean login(String id, String pw) {
 		for (int i = 0; i < users.length; i++) {
 			if (users[i] != null && users[i].getUserId().equals(id) && users[i].getPassword().equals(pw)) {
 				return true;
@@ -288,23 +288,36 @@ public class BookMain {
 		init();
 		boolean run = true;
 
-		while (run) {
+		while (true) {
 			System.out.println("로그인할 아이디와 비밀번호를 입력해주세요.");
 			System.out.print(" 아이디: ");
 			String uid = scn.nextLine();
 			System.out.print("비밀번호: ");
 			String upw = scn.nextLine();
 
-			if(!login(uid, upw)) {
+			if (!login(uid, upw)) {
 				System.out.println("아이디 혹은 비밀번호가 틀립니다. 다시 입력해주세요.");
 				continue;
 			}
-			
+			break;
+		}
+		
+		while (run) {
+
 			System.out.println("===============================================================================");
 			System.out.println(" 1. 도서등록 | 2. 도서수정 | 3. 도서삭제 | 4. 목록출력 | 5. 상세조회 | 6. 조건조회 |  9. 종료  ");
 			System.out.println("===============================================================================");
-			System.out.print("메뉴를 선택해 주세요 > ");
-			int menu = Integer.parseInt(scn.nextLine()); // nextInt()로는 숫자 입력과 함께 들어오는 엔터값 처리가 불가능하므로 parseInt를 사용해
+			int menu = 1;
+			while (true) {
+				try {
+					System.out.print("메뉴를 선택해 주세요 > ");
+					menu = Integer.parseInt(scn.nextLine());
+					break;
+				} catch (NumberFormatException e) {
+					System.out.println("메뉴는 숫자 정수 값을 입력해 주세요.");
+				}
+			}
+			// nextInt()로는 숫자 입력과 함께 들어오는 엔터값 처리가 불가능하므로 parseInt를 사용해
 			// 엔터 처리가 가능하지만 문자열인 nextLine() 감싸 사용
 			switch (menu) {
 			case 1: // 도서 등록
