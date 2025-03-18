@@ -1,5 +1,6 @@
 package com.yedam.classes;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MethodMain {
@@ -27,11 +28,9 @@ public class MethodMain {
 			case 1: // 목록 출력
 				Product prd = new Product();
 				prd.setProductName("ALL");
-				Product[] list = m2.productList(prd);
-				for (int i = 0; i < list.length; i++) {
-					if (list[i] != null) {
-						System.out.println(list[i].showList());
-					}
+				List<Product> list = m2.productList(prd);
+				for (int i = 0; i < list.size(); i++) {
+					System.out.println(list.get(i).showList());
 				}
 				break;
 			case 2: // 추가
@@ -171,12 +170,10 @@ public class MethodMain {
 		search.setProductName("만년필");
 //				search.setPrice(700); //숫자 이상인 가격만 검색해서 출력하도록
 
-		Product[] list = m2.productList(search);
+		List<Product> list = m2.productList(search);
 
-		for (int i = 0; i < list.length; i++) {
-			if (list[i] != null) {
-				System.out.println(list[i].showList());
-			}
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).showList());
 		}
 	}
 
