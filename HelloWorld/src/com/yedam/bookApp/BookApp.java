@@ -1,8 +1,48 @@
 package com.yedam.bookApp;
 
+import java.util.List;
+
 //실행 클래스(main 메소드를 담고 있어 실행하는 클래스)
 public class BookApp {
 	public static void main(String[] args) {
+		Book book = new Book();
+		book.setTitle("자바스크립트기초");
+		book.setWriter("김자바");
+		book.setCompany("한빛출판사");
+		book.setPrice(20000);
+
+		BookJdbc dao = new BookJdbc();
+//		if (dao.insert(book)) {
+//			System.out.println("등록에 성공했습니다.");
+//		} else {
+//			System.out.println("등록에 실패했습니다.");
+//		}
+
+		//삭제
+		String code = "1";
+//		if (dao.delete(code)) {
+//			System.out.println("삭제에 성공했습니다.");
+//		} else {
+//			System.out.println("삭제에 실패했습니다.");
+//		}
+		
+		//수정
+		book = new Book();
+		book.setTitle("백조왕자");
+		book.setPrice(13000);
+		book.setWriter("안데르센");
+		book.setBookCode("3");
+//		if(dao.update(book)) {
+//			System.out.println("수정되었습니다.");
+//		}else {
+//			System.out.println("수정되지 않았습니다.");
+//		}
+		
+//		List<Book> list = dao.list("한빛출판사");
+//		for(Book books : list) {
+//			System.out.println(books.showList());
+//		}
+
 //		BookMain mainApp1 = new BookMain();
 //		mainApp1.main(args);
 
@@ -34,7 +74,7 @@ public class BookApp {
 		// BookMain에 login메소드를 선언하고 매개값으로 아이디와 비밀번호를 입력받도록 한다.
 		// login메소드는 User[]에 등록된 회원중에서 입력받은 아이디와 비밀번호가 있으면 로그인성공 아니면 실패.
 		// login성공 했을 경우에만 1번) main메소드를 실행하도록 한다
-		
+
 		mainApp1.main(args);
 
 	}// 메인 끝

@@ -8,6 +8,7 @@ public class Book {
 	private String company; // 출판사
 	private int price; // 가격
 	private int orderNo; //등록번호??
+	private String bookCode;
 
 	// 생성자
 
@@ -35,6 +36,14 @@ public class Book {
 		//이 경우에는 위의 title, writer, company, price를 매개값으로 가지는 생성자를 뜻함.
 		//생성자 안에서 this를 사용하기 위해서는 생성자의 첫 줄에 위치해야함
 		this.orderNo = orderNo;
+	}
+
+	public String getBookCode() {
+		return bookCode;
+	}
+
+	public void setBookCode(String bookCode) {
+		this.bookCode = bookCode;
 	}
 
 	// 메소드.
@@ -93,7 +102,7 @@ public class Book {
 	}
 
 	public String showList() {
-		return "  " + title + "     " + writer + "      " + price;
+		return " " + bookCode + "   " + title + "     " + writer + "      " + price;
 	}
 	
 	public String showListCompany() {
