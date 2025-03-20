@@ -1,10 +1,20 @@
 package com.yedam.bookApp;
 
 import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 //실행 클래스(main 메소드를 담고 있어 실행하는 클래스)
 public class BookApp {
 	public static void main(String[] args) {
+		MemberJdbc jdao = new MemberJdbc();
+		List<Map<String, String>> list = jdao.memberList();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(list);
+//		System.out.println(json);
+
 		Book book = new Book();
 		book.setTitle("자바스크립트기초");
 		book.setWriter("김자바");
@@ -18,15 +28,15 @@ public class BookApp {
 //			System.out.println("등록에 실패했습니다.");
 //		}
 
-		//삭제
+		// 삭제
 		String code = "1";
 //		if (dao.delete(code)) {
 //			System.out.println("삭제에 성공했습니다.");
 //		} else {
 //			System.out.println("삭제에 실패했습니다.");
 //		}
-		
-		//수정
+
+		// 수정
 		book = new Book();
 		book.setTitle("백조왕자");
 		book.setPrice(13000);
@@ -37,7 +47,7 @@ public class BookApp {
 //		}else {
 //			System.out.println("수정되지 않았습니다.");
 //		}
-		
+
 //		List<Book> list = dao.list("한빛출판사");
 //		for(Book books : list) {
 //			System.out.println(books.showList());

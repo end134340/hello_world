@@ -117,6 +117,7 @@ public class MethodMain {
 
 				break;
 			case 9: // 종료
+				m2.save();
 				run = false;
 				break;
 			default:

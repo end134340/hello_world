@@ -1,6 +1,7 @@
 package com.yedam.bookApp;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 //도서관리 프로그램(등록, 수정, 삭제, 목록)
@@ -24,9 +25,10 @@ public class BookMain {
 	Scanner scn = new Scanner(System.in);
 //	Book[] bookStore = new Book[100];
 	boolean check = false;
-	User[] users = new User[10];
+//	User[] users = new User[10];
 
 	BookJdbc dao = new BookJdbc();
+	MemberJdbc jdao = new MemberJdbc();
 
 	// 책제목으로 조회해서 반환해주는 메소드
 	private Book searchBook(String title) {
@@ -207,13 +209,10 @@ public class BookMain {
 		return list;
 	}
 
-	private boolean login(String id, String pw) {
-		for (int i = 0; i < users.length; i++) {
-			if (users[i] != null && users[i].getUserId().equals(id) && users[i].getPassword().equals(pw)) {
-				return true;
-			}
-		}
-		return false;
+	private Map<String, String> login(String uid, String upw) {
+
+		return jdao.login(uid, upw);
+
 	}
 
 	public void main(String[] args) {
@@ -221,16 +220,19 @@ public class BookMain {
 		init();
 		boolean run = true;
 
+		System.out.println("로그인할 아이디와 비밀번호를 입력해주세요.");
 		while (true) {
-			System.out.println("로그인할 아이디와 비밀번호를 입력해주세요.");
 			System.out.print(" 아이디: ");
 			String uid = scn.nextLine();
 			System.out.print("비밀번호: ");
 			String upw = scn.nextLine();
-
-			if (!login(uid, upw)) {
+			Map<String, String> info = login(uid, upw);
+			
+			if (info == null) {
 				System.out.println("아이디 혹은 비밀번호가 틀립니다. 다시 입력해주세요.");
 				continue;
+			} else {
+				System.out.println(info.get("userName") + "님, 환영합니다!");
 			}
 			break;
 		}
@@ -293,9 +295,9 @@ public class BookMain {
 //		bookStore[4] = new Book("백조 왕자", "안데르센", "꿈", 17000, 5);
 //		bookStore[5] = new Book("이것이 자바다", "신용권", "한빛출", 17000, 6);
 
-		users[0] = new User("userid", "user1", "userpw");
-		users[1] = new User("thisid", "user2", "userpw");
-		users[2] = new User("imuser", "user3", "userpw");
+//		users[0] = new User("userid", "user1", "userpw");
+//		users[1] = new User("thisid", "user2", "userpw");
+//		users[2] = new User("imuser", "user3", "userpw");
 	}
 
 }

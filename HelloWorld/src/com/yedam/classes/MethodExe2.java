@@ -1,5 +1,10 @@
 package com.yedam.classes;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +13,68 @@ public class MethodExe2 {
 	private List<Product> store; // 필드
 
 	MethodExe2() { // 생성자
+		init();
+
+	}
+
+	void init() {
 		store = new ArrayList<Product>();
-		store.add(new Product("A001", "지우개", 500));
-		store.add(new Product("B001", "샤프", 2000));
-		store.add(new Product("C001", "연필", 700));
-		store.add(new Product("D001", "샤프심", 300));
-		store.add(new Product("E001", "만년필", 50000));
+//		try {
+//			Scanner scn = new Scanner(new FileInputStream("c:/temp/message.txt"));
+//			while (true) {
+//				String msg = scn.nextLine();
+//				String[] msgAry = msg.split(" ");
+//				store.add(new Product(msgAry[0], msgAry[1], Integer.parseInt(msgAry[2])));
+//
+//			}
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (NoSuchElementException e) {
+//
+//		}
+
+		try {
+			FileInputStream fis = new FileInputStream("c:/temp/product.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			store = (List<Product>) ois.readObject();
+			
+			ois.close();
+			fis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 종료시점에 store의 정보를 message.txt에 저장. => 다시 시작하면 이전에 저장된 데이터를 기반으로 프로그램 실행.
+	void save() {
+//		try {
+//			Writer writer = new FileWriter("c:/temp/message.txt");
+//
+//			while (true) {
+//				for (int i = 0; i < store.size(); i++) {
+//					String msg = store.get(i).getProductCode() + " "//
+//							+ store.get(i).getProductName() + " " //
+//							+ store.get(i).getPrice() + "\n";
+//					writer.write(msg);
+//					writer.flush();
+//				}
+//				break;
+//			}
+//			writer.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		try {
+			FileOutputStream fos = new FileOutputStream("c:/temp/product.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+			oos.writeObject(store);
+			oos.flush();
+			oos.close();
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	boolean add(Product prd) {// 메소드 (매개변수의 타입으로 객체도 올 수 있음)
